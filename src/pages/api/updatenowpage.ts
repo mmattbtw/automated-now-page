@@ -1,4 +1,4 @@
-import { DiscogsResponse, ReleasesItem } from "@/typings/discogs";
+import { ReleasesItem } from "@/typings/discogs";
 import { GithubResponse } from "@/typings/github";
 import { RecentTrack, TrackItem } from "@/typings/lastfm";
 import { NextRequest, NextResponse } from "next/server";
@@ -48,16 +48,12 @@ export default async function UpdateNowPage(req: NextRequest) {
   );
   const lastFmResponse = (await lastFmFetch.json()) as RecentTrack;
 
-  const discogsFetch = await fetch(
-    "https://api.discogs.com/users/mmattbtw/collection/folders/0/releases?sort=added&sort_order=desc&per_page=5",
-    {
-      headers: {
-        "User-Agent": "mmNowApi/0.1 +https://mm.omg.lol/",
-      },
-    }
-  );
-  console.log(discogsFetch.statusText, "discogs");
-  const discogsResponse = (await discogsFetch.json()) as DiscogsResponse;
+  // const discogsFetch = await fetch(
+  //   "https://api.discogs.com/users/mmattbtw/collection/folders/0/releases?sort=added&sort_order=desc&per_page=5"
+  // );
+  // console.log(discogsFetch.statusText, "discogs");
+  // const discogsResponse = (await discogsFetch.json()) as DiscogsResponse;
+  const discogsResponse = "broken" as any;
 
   const githubFetch = await fetch(
     "https://api.github.com/users/" +
@@ -106,7 +102,9 @@ ${
       ].replaceAll(" ", "+")})! {headphones}`
     : ""
 }
-
+${
+  discogsResponse !== "broken"
+    ? `
 ### What Music I'm Collecting
 - (source [discogs](https://www.discogs.com/user/mmattbtw/collection)) {record-vinyl}
 
@@ -125,6 +123,9 @@ ${discogsResponse.releases
     }}`;
   })
   .join("\n")}
+  `
+    : ""
+}
 
 ### What I'm coding
 ${githubResponse
