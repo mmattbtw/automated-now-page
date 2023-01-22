@@ -49,12 +49,7 @@ export default async function UpdateNowPage(req: NextRequest) {
   const lastFmResponse = (await lastFmFetch.json()) as RecentTrack;
 
   const discogsFetch = await fetch(
-    "https://api.discogs.com/users/" +
-      "mmattbtw" +
-      "/collection/folders/0/releases" +
-      "?sort=added" +
-      "&sort_order=desc" +
-      "&per_page=5",
+    "https://api.discogs.com/users/mmattbtw/collection/folders/0/releases?sort=added&sort_order=desc&per_page=5",
     {
       headers: {
         "User-Agent": "mmNowApi/0.1 +https://mm.omg.lol/",
