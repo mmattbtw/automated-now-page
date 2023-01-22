@@ -61,7 +61,7 @@ export default async function UpdateNowPage(req: NextRequest) {
       },
     }
   );
-  console.log(discogsFetch);
+  console.log(discogsFetch.statusText, "discogs");
   const discogsResponse = (await discogsFetch.json()) as DiscogsResponse;
 
   const githubFetch = await fetch(
