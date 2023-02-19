@@ -1,4 +1,4 @@
-import { ReleasesItem } from "@/typings/discogs";
+import { DiscogsResponse, ReleasesItem } from "@/typings/discogs";
 import { GithubResponse } from "@/typings/github";
 import { RecentTrack, TrackItem } from "@/typings/lastfm";
 import { NextRequest, NextResponse } from "next/server";
@@ -44,23 +44,28 @@ export default async function UpdateNowPage(req: NextRequest) {
       "&api_key=" +
       process.env.LAST_FM_KEY +
       "&format=json" +
-      "&limit=5"
+      "&limit=10"
   );
   const lastFmResponse = (await lastFmFetch.json()) as RecentTrack;
 
-  // const discogsFetch = await fetch(
-  //   "https://api.discogs.com/users/mmattbtw/collection/folders/0/releases?sort=added&sort_order=desc&per_page=5"
-  // );
-  // console.log(discogsFetch.statusText, "discogs");
-  // const discogsResponse = (await discogsFetch.json()) as DiscogsResponse;
-  const discogsResponse = "broken" as any;
+  const discogsFetch = await fetch(
+    "https://api.discogs.com/users/mmattbtw/collection/folders/0/releases?sort=added&sort_order=desc&per_page=10",
+    {
+      headers: {
+        "User-Agent": "mm.omg.lol/now",
+      },
+    }
+  );
+  console.log(discogsFetch.statusText, "discogs");
+  const discogsResponse = (await discogsFetch.json()) as DiscogsResponse;
+  // const discogsResponse = "broken" as any;
 
   const githubFetch = await fetch(
     "https://api.github.com/users/" +
       "mmattbtw" +
       "/repos" +
       "?sort=pushed" +
-      "&per_page=5"
+      "&per_page=10"
   );
   const githubResponse = (await githubFetch.json()) as GithubResponse;
 
@@ -75,9 +80,9 @@ export default async function UpdateNowPage(req: NextRequest) {
 
 ### What I’m making
 
-- [Solrock](https://solrock.mmattdonk.com) {globe}
-- A commisioned program for a streamer 👀 {ferris-wheel}
 - [Songish](https://songish.app) {compact-disc}
+- [Solrock](https://solrock.mmattdonk.com) {globe}
+- A commisioned program for a streamer 👀
 
 ### What I'm listening to
 - (source [last.fm](https://www.last.fm/user/mmattbtw)) {lastfm}
@@ -105,7 +110,7 @@ ${
     : ""
 }
 ${
-  discogsResponse !== "broken"
+  discogsResponse.releases.length > 0
     ? `
 ### What Music I'm Collecting
 - (source [discogs](https://www.discogs.com/user/mmattbtw/collection)) {record-vinyl}
@@ -130,6 +135,8 @@ ${discogsResponse.releases
 }
 
 ### What I'm coding
+- (only personal public repos, lots of stuff i work on are on [@mmattDonk](https://github.com/mmattDonk) or are private. most closed source repos i'm actively working on are at the top)
+
 ${githubResponse
   .map((repo) => {
     return `- [${repo.owner.login}/${repo.name}](${repo.html_url}) {github}`;
