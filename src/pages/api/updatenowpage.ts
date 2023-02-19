@@ -76,7 +76,8 @@ export default async function UpdateNowPage(req: NextRequest) {
 ### What I’m making
 
 - [Solrock](https://solrock.mmattdonk.com) {globe}
-- A commisioned program for a streamer  {ferris-wheel}
+- A commisioned program for a streamer 👀 {ferris-wheel}
+- [Songish](https://songish.app) {compact-disc}
 
 ### What I'm listening to
 - (source [last.fm](https://www.last.fm/user/mmattbtw)) {lastfm}
