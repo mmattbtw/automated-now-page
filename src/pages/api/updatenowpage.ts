@@ -80,9 +80,8 @@ export default async function UpdateNowPage(req: NextRequest) {
 
 ### What I’m making
 
-- [Songish](https://songish.app) {compact-disc}
+- [Songish](https://songish.app)
 - [Solrock](https://solrock.mmattdonk.com) {globe}
-- A commisioned program for a streamer 👀
 
 ### What I'm listening to
 - (source [last.fm](https://www.last.fm/user/mmattbtw)) {lastfm}
