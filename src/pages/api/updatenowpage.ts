@@ -52,7 +52,7 @@ export default async function UpdateNowPage(req: NextRequest) {
     "https://api.discogs.com/users/mmattbtw/collection/folders/0/releases?sort=added&sort_order=desc&per_page=10",
     {
       headers: {
-        "User-Agent": "mm.omg.lol/now",
+        "User-Agent": "matt.omg.lol/now",
       },
     }
   );
@@ -151,7 +151,7 @@ ${githubResponse
 
   // console.log(nowPage);
 
-  const omglolFetch = await fetch("https://api.omg.lol/address/mm/now", {
+  const omglolFetch = await fetch("https://api.omg.lol/address/matt/now", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.OMG_LOL_SECRET}`,
